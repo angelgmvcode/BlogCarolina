@@ -30,6 +30,8 @@
             font-size: 16px; 
         }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        
+        /* BARRA LATERAL (PC) */
         .sidebar {
             width: 340px; 
             background: #0a0a0a;
@@ -41,7 +43,9 @@
             box-shadow: 10px 0 40px rgba(0,0,0,1);
             z-index: 10;
             overflow-y: auto; 
+            flex-shrink: 0; /* Evita que se aplaste */
         }
+        
         .avatar-container {
             width: 200px; height: 200px; 
             min-height: 200px; flex-shrink: 0;   
@@ -54,6 +58,7 @@
             box-shadow: 0 0 20px var(--blood);
         }
         .avatar-img { width: 100%; height: 100%; object-fit: cover; }
+        
         h1 { 
             font-family: 'UnifrakturMaguntia'; 
             font-size: 3.2em; 
@@ -61,7 +66,9 @@
             margin: 5px 0; 
             text-shadow: 3px 3px 0px #330000; 
             line-height: 1;
+            text-align: center;
         }
+        
         .nav-btn {
             width: 100%; background: #000; border: 1px solid #333; color: #fff;
             padding: 15px; margin: 6px 0; cursor: pointer;
@@ -73,32 +80,41 @@
             box-shadow: 0 0 15px var(--blood);
             transform: scale(1.02); font-weight: bold;
         }
+
+        /* CONTENIDO PRINCIPAL (PC) */
         .main-content {
             flex: 1; padding: 50px; overflow-y: auto;
             background: radial-gradient(circle at center, #220505 0%, #000 85%);
             position: relative;
         }
+
         .floating-deco { position: absolute; pointer-events: none; opacity: 0.9; z-index: 5; }
         .section { display: none; animation: fadeIn 0.4s; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         h2 {
             border-bottom: 3px solid var(--blood); 
             color: #fff; font-size: 1.8em; margin-bottom: 20px; letter-spacing: 2px;
         }
+        
         .blog-post {
             background: rgba(15,15,15,0.9); border: 1px solid #444;
             padding: 30px; margin-bottom: 30px;
             box-shadow: 8px 8px 0px #1a0000;
         }
         .blog-post p { font-size: 1.1em; line-height: 1.5; }
+        
         input, textarea { font-size: 1.1em; padding: 12px; border: 1px solid #444; background: #000; color: #fff; width: 100%; box-sizing: border-box;}
+        
         .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         .photo-card {
             background: #000; border: 1px solid #333; padding: 10px; text-align: center;
             transition: 0.3s;
         }
         .photo-card:hover { border-color: var(--neon-red); transform: scale(1.03); }
+
+        /* REPRODUCTOR FLOTANTE (PC) */
         .floating-player {
             position: fixed;
             bottom: 20px;
@@ -111,6 +127,7 @@
             z-index: 1000; 
             border-radius: 5px;
             backdrop-filter: blur(5px);
+            transition: all 0.3s ease; /* Suavizar cambios de tamaño */
         }
         .player-screen {
             background: #000;
@@ -126,8 +143,10 @@
         }
         .scroll-text { display: inline-block; animation: scroll 8s linear infinite; padding-left: 100%; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        .progress-bg { width: 100%; height: 4px; background: #333; margin-bottom: 8px; cursor: pointer; }
+        
+        .progress-bg { width: 100%; height: 10px; background: #333; margin-bottom: 8px; cursor: pointer; position: relative; }
         .progress-fill { height: 100%; width: 0%; background: var(--blood); transition: width 0.1s linear; }
+        
         .player-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;}
         .p-btn { 
             background: #111; border: 1px solid #444; color: #ccc; cursor: pointer; 
@@ -135,11 +154,71 @@
         }
         .p-btn:hover { border-color: var(--neon-red); color: #fff; }
         .play-big { width: 40px; height: 40px; font-size: 1.2em; border-color: var(--blood); color: var(--blood); }
+        
         .volume-ctrl { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.7em; color: #666; }
         .vol-btn { width: 20px; height: 20px; font-size: 0.8em; padding: 0; background: #000; border: 1px solid #333; color: #fff; cursor: pointer; }
+
+        /* --- VERSIÓN MÓVIL (RESPONSIVE) --- */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Cambia a vertical */
+                height: auto; 
+                overflow-y: auto; /* Permite scroll normal */
+            }
+
+            .sidebar {
+                width: 100%; /* Ocupa todo el ancho */
+                height: auto;
+                border-right: none;
+                border-bottom: 3px solid var(--blood);
+                padding: 15px;
+                box-sizing: border-box;
+                flex-direction: row; /* Elementos lado a lado arriba */
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .avatar-container {
+                width: 100px; height: 100px; /* Avatar más pequeño */
+                min-height: 100px;
+                margin-bottom: 5px;
+            }
+
+            h1 { width: 100%; font-size: 2em; margin-bottom: 10px; }
+            
+            .nav-btn {
+                width: 45%; /* Botones en dos columnas */
+                font-size: 1em;
+                padding: 10px;
+            }
+
+            .main-content {
+                padding: 20px;
+                padding-bottom: 140px; /* Espacio para el reproductor abajo */
+                overflow: visible;
+            }
+
+            .floating-deco { display: none; /* Ocultar decoraciones que estorben */ }
+
+            /* Reproductor estilo "Spotify Móvil" */
+            .floating-player {
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 0;
+                border-left: none; 
+                border-right: none;
+                border-bottom: none;
+                background: #000;
+                box-sizing: border-box;
+            }
+        }
     </style>
 </head>
 <body>
+
     <div class="floating-player">
         <audio id="audio-player"></audio>
         <div class="player-screen">
@@ -160,23 +239,23 @@
             <button class="vol-btn" onclick="changeVol(0.1)">+</button>
         </div>
     </div>
+
     <div class="sidebar">
         <div class="avatar-container">
             <img src="avatar.gif" class="avatar-img" alt="Foto Perfil">
         </div>
         <h1>Tu Blog</h1>
-        <p style="font-size: 0.9em; letter-spacing: 3px; color: #fff;">★ MI BLOG ★</p>
-        <img src="separador.gif" style="width: 100%; max-width: 280px; margin: 15px 0; opacity: 0.9;">
+        <p style="font-size: 0.9em; letter-spacing: 3px; color: #fff; width: 100%; text-align: center;">★ MI BLOG ★</p>
+        
         <button class="nav-btn active" onclick="showSection('home', this)">Inicio</button>
         <button class="nav-btn" onclick="showSection('piercings', this)">Mis Piercings</button>
         <button class="nav-btn" onclick="showSection('journal', this)">Diario</button>
         <button class="nav-btn" onclick="showSection('contact', this)">Mensajes</button>
-        <div style="margin-top: auto; padding-top: 20px;">
-            <img src="murcielago.gif" width="100" style="opacity: 0.8;">
-        </div>
     </div>
+
     <div class="main-content">
         <img src="calavera.gif" class="floating-deco" style="top: 10px; right: 40px; width: 100px;">
+        
         <div id="home" class="section active">
             <h2>>> BIENVENIDO/A</h2>
             <div class="blog-post">
@@ -185,10 +264,11 @@
                 <p>Escribe lo que piensas..</p>
                 <br>
                 <div style="text-align: center;">
-                    <img src="separador.gif" width="250">
+                    <img src="separador.gif" width="250" style="max-width: 100%;">
                 </div>
             </div>
         </div>
+
         <div id="piercings" class="section">
             <h2>>> MIS PIERCINGS</h2>
             <br>
@@ -207,12 +287,14 @@
                 </div>
             </div>
         </div>
+
         <div id="journal" class="section">
             <h2>>> DIARIO PERSONAL</h2>
             <div class="blog-post">
                 <p>Escribe lo que piensas..</p>
             </div>
         </div>
+
         <div id="contact" class="section">
             <h2>>> MANDAR MENSAJE</h2>
             <input type="text" placeholder="ASUNTO..." style="margin-bottom: 20px;">
@@ -220,13 +302,17 @@
             <button class="nav-btn" style="border-color: var(--neon-red); color: var(--neon-red); font-weight: bold;">ENVIAR AHORA</button>
         </div>
     </div>
+
     <script>
+        // LÓGICA DE PESTAÑAS
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
+
+        // EFECTO DE ESCRITURA
         const text = "Bienvenida.";
         let i = 0;
         function type() {
@@ -236,8 +322,11 @@
                 setTimeout(type, 100);
             }
         }
+
+        // INICIALIZACIÓN
         window.onload = () => {
             type();
+            // Intento de autoplay (los navegadores suelen bloquearlo si no hay interacción previa)
             const promise = audio.play();
             if (promise !== undefined) {
                 promise.then(_ => {
@@ -247,26 +336,33 @@
                 });
             }
         };
+
+        // REPRODUCTOR DE MÚSICA
         const playlist = [
             { title: "♪ CANCIÓN FONDO ♪", src: "cancion4.mp3" },
             { title: "Gorillaz - Feel Good Inc", src: "cancion1.mp3" },
             { title: "Gorillaz - DARE", src: "cancion2.mp3" },
             { title: "Gorillaz - Clint Eastwood", src: "cancion3.mp3" }
         ];
+
         let currentIdx = 0;
         const audio = document.getElementById('audio-player');
         const playBtn = document.getElementById('playBtn');
         const trackLabel = document.getElementById('track-name');
         const progressBar = document.getElementById('progress');
         const volDisplay = document.getElementById('vol-display');
+
         audio.src = playlist[0].src;
         audio.volume = 0.5;
         trackLabel.innerText = playlist[0].title;
+
+        // Desbloquear audio con el primer clic en la página
         document.body.addEventListener('click', () => {
             if(audio.paused && audio.currentTime === 0) {
                 togglePlay();
             }
         }, { once: true });
+
         function togglePlay() {
             if(audio.paused) {
                 audio.play();
@@ -278,39 +374,55 @@
                 trackLabel.style.animationPlayState = "paused";
             }
         }
+
         function nextTrack() {
             currentIdx = (currentIdx + 1) % playlist.length;
             loadTrack();
         }
+
         function prevTrack() {
             currentIdx = (currentIdx - 1 + playlist.length) % playlist.length;
             loadTrack();
         }
+
         function loadTrack() {
             audio.src = playlist[currentIdx].src;
             trackLabel.innerText = playlist[currentIdx].title;
             audio.play();
             playBtn.innerHTML = "||";
         }
+
         function changeVol(delta) {
             let newVol = Math.min(1, Math.max(0, audio.volume + delta));
             audio.volume = newVol;
             volDisplay.innerText = Math.round(newVol * 100) + "%";
         }
+
+        // --- FUNCIÓN CORREGIDA PARA QUE FUNCIONE EN CELULAR Y PC ---
         function seek(e) {
-            const width = e.target.parentElement.clientWidth; 
-            const clickX = e.offsetX;
+            // e.currentTarget siempre se refiere al elemento contenedor (.progress-bg)
+            // getBoundingClientRect() nos da las medidas exactas en pantalla
+            const rect = e.currentTarget.getBoundingClientRect();
+            
+            // Calculamos dónde fue el clic relativo al inicio de la barra
+            const clickX = e.clientX - rect.left;
+            
+            // Obtenemos el ancho total actual de la barra
+            const width = rect.width;
+            
             const duration = audio.duration;
-            if(duration) {
-                audio.currentTime = (clickX / 260) * duration; 
+            if(duration && width > 0) {
+                audio.currentTime = (clickX / width) * duration;
             }
         }
+
         audio.addEventListener('timeupdate', () => {
             if(audio.duration) {
                 const percent = (audio.currentTime / audio.duration) * 100;
                 progressBar.style.width = percent + '%';
             }
         });
+
         audio.addEventListener('ended', nextTrack);
     </script>
 </body>
